@@ -85,6 +85,64 @@ is wrong. It must point at `dist/pokemon/browser` (already set in
 Android project needs **JDK 21**. Android Studio's bundled JBR may still be 17 — set
 `JAVA_HOME` to a JDK 21 before building from the command line.
 
+### 5a. Android → an installable APK
+
+After `npx cap open android` opens Android Studio, **wait for the Gradle sync** (progress
+bar, bottom of the window) to finish. Then pick one of two paths.
+
+**Option A — run straight onto a device/emulator (easiest, no file to handle):**
+
+1. Connect an Android phone with **USB debugging** enabled (Settings → *Developer
+   options*), or start an emulator (*Device Manager* → ▶).
+2. Choose the device in the toolbar dropdown and press **Run ▶** (`Ctrl/Cmd + R`).
+3. Android Studio builds, installs, and launches the app automatically.
+
+**Option B — produce an APK file and install it manually:**
+
+1. Menu **Build → Build Bundle(s) / APK(s) → Build APK(s)**.
+2. When it finishes, click **locate** in the pop-up (bottom-right). The file is:
+   ```
+   android/app/build/outputs/apk/debug/app-debug.apk
+   ```
+3. Install it:
+   - **Over USB:** `adb install android/app/build/outputs/apk/debug/app-debug.apk`
+   - **On the phone directly:** copy the `.apk` to the device, tap it, allow *install
+     from unknown sources*, then install.
+
+**Command line only (no Android Studio needed) — same result:**
+
+```bash
+cd android
+export JAVA_HOME=/path/to/jdk-21          # Capacitor 8 needs JDK 21
+./gradlew assembleDebug                    # → app/build/outputs/apk/debug/app-debug.apk
+adb install app/build/outputs/apk/debug/app-debug.apk   # install to a connected device
+```
+
+**Debug vs release:** the steps above build a **debug** APK — ideal for installing on
+your own device to test, no signing required. A **release** APK (Play Store / wide
+sharing) needs a signing key:
+
+```bash
+./gradlew assembleRelease   # requires a keystore + signingConfig in android/app/build.gradle
+```
+
+Set that up only when you are ready to distribute publicly.
+
+### 5b. iOS → run on a simulator or device
+
+iOS has **no APK equivalent** — you run the app from Xcode, and installing on real
+devices requires Apple signing.
+
+After `npx cap open ios` opens Xcode:
+
+1. **Simulator (no Apple account needed):** pick a simulator (e.g. *iPhone 15*) in the
+   toolbar and press **Run ▶**. It builds and launches in the simulator.
+2. **A real iPhone:** connect it, then select the **App** target →
+   **Signing & Capabilities** → set your **Team** (a free Apple ID works for your own
+   device; the certificate lasts 7 days). Choose the device and press **Run ▶**.
+3. **A shareable build (`.ipa`):** **Product → Archive**, then distribute via the
+   Organizer — this needs a **paid** Apple Developer account and provisioning profiles.
+
 ---
 
 ## Quick reference
