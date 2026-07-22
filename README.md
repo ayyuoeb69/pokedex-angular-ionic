@@ -3,6 +3,8 @@
 A Pokédex app that runs as a desktop web app, a mobile web app, and a native
 iOS/Android app from a single codebase.
 
+**The Deploy Web:** https://pokemon-angular-5iucupp4n-ayyuoeb69s-projects.vercel.app/
+
 - **Framework:** Angular 21 (standalone, signals, **zoneless** change detection)
 - **UI / native shell:** Ionic 8 + Capacitor 8
 - **Data:** [PokéAPI](https://pokeapi.co) REST
