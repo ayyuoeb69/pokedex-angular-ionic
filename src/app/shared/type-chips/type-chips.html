@@ -1,0 +1,15 @@
+<div class="filters" role="group" aria-label="Filter by type">
+
+  @for (type of types; track type) {
+    <button
+      type="button"
+      class="chip"
+      [class.is-active]="active() === type"
+      [attr.aria-pressed]="active() === type"
+      [style.background]="'var(--t-' + type + ')'"
+      (click)="select.emit(type)"
+    >
+      {{ type }}
+    </button>
+  }
+</div>

@@ -1,0 +1,47 @@
+<ion-app>
+  <div class="dex">
+    <header class="dex-top">
+      <div class="lens" aria-hidden="true"></div>
+
+      <div class="leds" aria-hidden="true">
+        <span class="led is-green"></span>
+        <span class="led is-yellow"></span>
+        <span class="led is-red"></span>
+      </div>
+
+      <div class="dex-title">
+        <div class="kanji">POKeDEX</div>
+        <div class="sub">2026</div>
+      </div>
+    </header>
+
+    <main class="screen">
+      <ion-router-outlet></ion-router-outlet>
+    </main>
+
+    <nav class="dex-nav" aria-label="Main">
+      <a
+        class="navbtn"
+        routerLink="/"
+        routerLinkActive="is-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        #listLink="routerLinkActive"
+        [attr.aria-current]="listLink.isActive ? 'page' : null"
+      >
+        <span class="ico" aria-hidden="true">&#9636;</span>
+        Browse
+      </a>
+
+      <a
+        class="navbtn"
+        routerLink="/favorites"
+        routerLinkActive="is-active"
+        #favLink="routerLinkActive"
+        [attr.aria-current]="favLink.isActive ? 'page' : null"
+      >
+        <span class="ico" aria-hidden="true">&#9829;</span>
+        Favourites
+      </a>
+    </nav>
+  </div>
+</ion-app>

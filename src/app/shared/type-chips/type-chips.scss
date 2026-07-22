@@ -1,0 +1,53 @@
+.filters {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+.filters::-webkit-scrollbar {
+  height: 6px;
+}
+
+.filters::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  background: var(--hair);
+}
+
+.chip {
+  flex: none;
+  padding: 7px 14px;
+  border: none;
+  border-radius: 999px;
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.15);
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #fff;
+  text-transform: capitalize;
+  cursor: pointer;
+  margin-top: 2px;
+  opacity: 0.55;
+  transition:
+    opacity 0.15s,
+    transform 0.1s;
+}
+
+.chip:hover {
+  opacity: 0.8;
+}
+
+.chip.is-all {
+  background: #5a5f52;
+}
+
+.chip.is-active {
+  opacity: 1;
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 -2px 0 rgba(0, 0, 0, 0.2),
+    0 0 0 3px rgba(255, 255, 255, 0.7);
+  border: 3px solid black;
+}

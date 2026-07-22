@@ -1,0 +1,25 @@
+<ion-content [fullscreen]="true">
+  <div class="scr-head">
+    <div class="scr-title">
+      <h1>Favourites</h1>
+      <span class="count">{{ countLabel() }}</span>
+    </div>
+  </div>
+
+  @if (isEmpty()) {
+    <app-empty-state
+      heading="No favourites yet"
+      message="Open any Pokémon and tap the heart to keep it here."
+    />
+  } @else {
+    <div class="grid">
+      @for (item of favorites(); track item.id) {
+        <app-pokemon-card
+          [pokemon]="item"
+          [isFavorite]="true"
+          (select)="openDetail(item.id)"
+        />
+      }
+    </div>
+  }
+</ion-content>

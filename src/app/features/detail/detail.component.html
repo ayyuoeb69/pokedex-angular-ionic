@@ -1,0 +1,98 @@
+<ion-content [fullscreen]="true">
+  @if (loading()) {
+    <div class="loading-block">
+      <ion-spinner name="crescent"></ion-spinner>
+    </div>
+  } @else if (error()) {
+    <div class="error-wrap">
+      <button type="button" class="icon-btn" (click)="goBack()" aria-label="Go back">
+        &#8592;
+      </button>
+      <app-empty-state heading="Could not load" [message]="error()!">
+        <button type="button" class="retry-btn" (click)="retry()">Try again</button>
+      </app-empty-state>
+    </div>
+  } @else if (pokemon(); as poke) {
+    <div class="detail-hero" [style.background]="heroBackground()">
+      <div class="detail-topbar">
+        <button type="button" class="icon-btn" (click)="goBack()" aria-label="Go back">
+          &#8592;
+        </button>
+
+        <button
+          type="button"
+          class="icon-btn"
+          (click)="toggleFavorite()"
+          [attr.aria-pressed]="isFavorite()"
+          [attr.aria-label]="
+            isFavorite() ? 'Remove from favourites' : 'Add to favourites'
+          "
+        >
+          {{ heartIcon() }}
+        </button>
+      </div>
+
+      <div class="detail-types">
+        @for (type of poke.types; track type) {
+          <app-type-badge [type]="type" />
+        }
+      </div>
+
+      <div class="detail-art-wrap">
+        <img class="ball-huge" src="pokeball-watermark.svg" alt="" aria-hidden="true" />
+        <img
+          class="detail-art"
+          (error)="onImageError($event)"
+          [src]="poke.imageUrl"
+          [alt]="poke.name"
+          decoding="async"
+        />
+      </div>
+    </div>
+
+    <div class="detail-body">
+      <div class="measure">
+        <div>
+          <div class="lbl">Height</div>
+          <div class="val">{{ poke.heightM }} m</div>
+        </div>
+        <div>
+          <div class="lbl">Weight</div>
+          <div class="val">{{ poke.weightKg }} kg</div>
+        </div>
+      </div>
+
+      <h3 class="sec-h">Base stats</h3>
+
+      @for (stat of poke.stats; track stat.name) {
+        <div class="stat">
+          <span class="sname">{{ stat.name }}</span>
+          <span class="sval">{{ stat.value }}</span>
+          <div
+            class="bar"
+            role="meter"
+            [attr.aria-label]="stat.name"
+            [attr.aria-valuenow]="stat.value"
+            aria-valuemin="0"
+            aria-valuemax="255"
+          >
+            <span
+              [style.width.%]="statPercent(stat.value)"
+              [style.background]="statColor(stat.value)"
+            ></span>
+          </div>
+        </div>
+      }
+
+      <button
+        type="button"
+        class="fav-btn"
+        [class.is-on]="isFavorite()"
+        (click)="toggleFavorite()"
+      >
+        <span aria-hidden="true">{{ heartIcon() }}</span>
+        {{ favoriteLabel() }}
+      </button>
+    </div>
+  }
+</ion-content>

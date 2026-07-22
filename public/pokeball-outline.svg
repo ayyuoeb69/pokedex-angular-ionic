@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" aria-hidden="true">
+  <!--
+    Empty-state pokeball.
+
+    The colour is baked in rather than inherited via currentColor: this file is
+    loaded through an img element, and CSS from the host page does not cascade
+    into an image-loaded SVG document. #6b6f60 is the literal value of the
+    ink-soft token; the 0.35 opacity is still applied from CSS.
+
+    Note for editors: never write two consecutive hyphens in this comment. XML
+    forbids them inside comments, and a single stray pair makes the whole file
+    unparseable, so the image silently fails to decode with no console error.
+  -->
+  <g fill="none" stroke="#6b6f60" stroke-width="5">
+    <circle cx="50" cy="50" r="46" />
+    <line x1="8" y1="50" x2="92" y2="50" />
+    <circle cx="50" cy="50" r="12" />
+  </g>
+  <path d="M8 50a42 42 0 0 1 84 0z" fill="#6b6f60" opacity=".25" />
+</svg>

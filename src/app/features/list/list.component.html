@@ -1,0 +1,49 @@
+<ion-content [fullscreen]="true">
+  <div class="scr-head">
+    <div class="scr-title">
+      <h1>Pokemon</h1>
+    </div>
+
+    <app-type-chips [active]="activeType()" (select)="onSelectType($event)" />
+  </div>
+
+  @if (isInitialLoad()) {
+    <div class="loading-block">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Loading Pok&eacute;dex&hellip;</p>
+    </div>
+  } @else if (error() && cards().length === 0) {
+    <app-empty-state heading="Connection lost" [message]="error()!">
+      <button type="button" class="retry-btn" (click)="retry()">Try again</button>
+    </app-empty-state>
+  } @else if (isEmpty()) {
+    <app-empty-state
+      heading="Nothing here"
+      message="No Pokémon of that type turned up. Try another filter."
+    />
+  } @else {
+    <div class="grid">
+      @for (card of cards(); track card.item.id) {
+        <app-pokemon-card
+          [pokemon]="card.item"
+          [isFavorite]="card.isFavorite"
+          (select)="openDetail(card.item.id)"
+        />
+      }
+    </div>
+
+    <ion-infinite-scroll
+      [disabled]="!hasMore()"
+      (ionInfinite)="onInfiniteScroll($any($event))"
+    >
+      <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+    @if (error()) {
+      <div class="inline-error">
+        <span>{{ error() }}</span>
+        <button type="button" class="retry-btn" (click)="retry()">Retry</button>
+      </div>
+    }
+  }
+</ion-content>

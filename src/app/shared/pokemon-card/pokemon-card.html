@@ -1,0 +1,23 @@
+<button type="button" class="card" [style.background-color]="typeColor()" (click)="select.emit()">
+  @if (isFavorite()) {
+    <span class="fav-dot" aria-hidden="true">&#10084;&#65039;</span>
+  }
+
+  <img class="ball-bg" src="pokeball-watermark.svg" alt="" aria-hidden="true" />
+
+  <img
+    class="art"
+    [src]="pokemon().imageUrl"
+    [alt]="pokemon().name"
+    loading="lazy"
+    (error)="onImageError($event)"
+    decoding="async"
+  />
+
+  <span class="nm">
+    {{ pokemon().name }}
+    @if (isFavorite()) {
+      <span class="visually-hidden">(favourited)</span>
+    }
+  </span>
+</button>

@@ -1,0 +1,38 @@
+.loading-block {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+  padding: 80px 20px;
+  color: var(--ink-soft);
+
+  ion-spinner {
+    width: 38px;
+    height: 38px;
+    color: var(--dex-red);
+  }
+
+  p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+  }
+}
+
+.inline-error {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 20px 28px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+ion-infinite-scroll-content {
+  --color: var(--dex-red);
+
+  min-height: 72px;
+}

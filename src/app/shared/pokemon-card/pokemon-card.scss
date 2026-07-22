@@ -1,0 +1,114 @@
+:host {
+  display: block;
+
+  /*
+    Each card is a grid item. `content-visibility: auto` lets the browser skip
+    layout, style and paint for any card scrolled out of view, then do that work
+    only when it approaches the viewport — so a grid of 1000+ cards costs about
+    what a screenful costs, with no change to the markup or the scroll model.
+
+    `contain-intrinsic-size` reserves a placeholder height for skipped cards so
+    the scrollbar stays honest; the `auto` keyword makes the browser remember
+    each card's real height once it has been rendered once. ~160px matches a
+    rendered card (artwork + name + padding).
+
+    This is the pragmatic fix. Removing the off-screen DOM nodes entirely would
+    need CDK virtual scroll — see the performance note in the README for why
+    that is deferred and what it would take with this responsive grid.
+  */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 160px;
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  padding: 12px 12px 10px;
+  overflow: hidden;
+  border: none;
+  border-radius: 14px;
+  box-shadow:
+    0 4px 0 #6f7264,
+    0 6px 14px var(--shadow);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 7px 0 #6f7264,
+    0 12px 22px var(--shadow);
+}
+
+.card:active {
+  transform: translateY(0);
+  box-shadow:
+    0 2px 0 #6f7264,
+    0 4px 10px var(--shadow);
+}
+
+.num {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-family: var(--font-pixel);
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.ball-bg {
+  position: absolute;
+  right: -18px;
+  bottom: -18px;
+  width: 96px;
+  height: 96px;
+  opacity: 0.16;
+}
+
+.art {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 88px;
+  height: 88px;
+  margin: 8px auto 2px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 5px rgba(0, 0, 0, 0.25));
+}
+
+.nm {
+  position: relative;
+  z-index: 1;
+  display: block;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  text-transform: capitalize;
+}
+
+.fav-dot {
+  position: absolute;
+  top: 11px;
+  left: 11px;
+  z-index: 2;
+  font-size: 13px;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3));
+}
+
+@media (max-width: 640px) {
+  .art {
+    width: 74px;
+    height: 74px;
+  }
+
+  .nm {
+    font-size: 14px;
+  }
+}
