@@ -3,7 +3,7 @@
 A Pokédex app that runs as a desktop web app, a mobile web app, and a native
 iOS/Android app from a single codebase.
 
-**The Deploy Web:** https://pokemon-angular-i7y4j8zh4-ayyuoeb69s-projects.vercel.app/
+**The Deploy Web:** https://pokemon-angular-one.vercel.app/
 
 - **Framework:** Angular 21 (standalone, signals, **zoneless** change detection)
 - **UI / native shell:** Ionic 8 + Capacitor 8
