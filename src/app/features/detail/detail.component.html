@@ -32,6 +32,9 @@
         </button>
       </div>
 
+      <div class="detail-name">
+        <h2>{{ poke.name }}</h2>
+      </div>
       <div class="detail-types">
         @for (type of poke.types; track type) {
           <app-type-badge [type]="type" />
