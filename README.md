@@ -59,8 +59,8 @@ Runs the Vitest suite once and exits.
 
 ## 5. Run as a native app (Android / iOS)
 
-The native platforms are not committed yet — add them once, then repeat the
-build → sync → open cycle whenever the web code changes.
+Add the native platforms once (and **commit them** — see [Source control](#source-control-git)),
+then repeat the build → sync → open cycle whenever the web code changes.
 
 ```bash
 # one-time: install the platform packages and generate the native projects
@@ -98,5 +98,36 @@ Android project needs **JDK 21**. Android Studio's bundled JBR may still be 17 �
 | Sync web build into native | `npm run build && npx cap sync` |
 | Open Android | `npx cap open android` |
 | Open iOS | `npx cap open ios` |
+
+---
+
+## Source control (Git)
+
+**Commit the native folders (`ios/` and `android/`).** This is Capacitor's recommended
+setup: it lets a teammate `git clone` and build without re-running `cap add`, and it
+preserves native customisation (app icons, splash, `Info.plist`, `AndroidManifest.xml`,
+signing config, native plugins).
+
+`cap add` drops a `.gitignore` **inside** each platform folder that already excludes the
+regenerable/transient parts, so only real project source is committed. Ignored for you:
+
+- `ios/App/App/public/` — the web build copied by `cap sync` (regenerated every build)
+- generated config: `capacitor.config.json`, `config.xml`
+- build outputs: `build/`, `DerivedData/`, `Pods/`, `.gradle/`, `xcuserdata/`, `.DS_Store`
+
+After installing the platform packages, also commit `package.json` and
+`package-lock.json`. `node_modules/` and `dist/` stay ignored by the root `.gitignore`.
+
+> **Do not** add `/ios` or `/android` to the root `.gitignore`. Ignoring the whole native
+> folder only makes sense if you never touch native code and regenerate it in CI — that
+> is not Capacitor's default and it loses any customisation.
+
+| Path | Commit? |
+|---|---|
+| `ios/`, `android/` (project source) | ✅ yes |
+| `capacitor.config.ts` | ✅ yes |
+| `package.json`, `package-lock.json` | ✅ yes |
+| `node_modules/`, `dist/` | ❌ ignored (root `.gitignore`) |
+| native build artifacts, copied web build, generated config | ❌ ignored (per-platform `.gitignore`) |
 
 ---
