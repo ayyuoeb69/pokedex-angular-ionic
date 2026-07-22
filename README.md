@@ -44,7 +44,7 @@ Resize the window to see the responsive layout (grid reflows to 1–2 columns on
 npm run build
 ```
 
-Output goes to **`dist/pokemon/browser/`** — this folder is what Capacitor ships to
+Output goes to **`dist/Pokemon/browser/`** — this folder is what Capacitor ships to
 the native apps (see `webDir` in `capacitor.config.ts`).
 
 ## 4. Run the unit tests
@@ -69,7 +69,7 @@ npx cap add android
 npx cap add ios          # macOS + Xcode only
 
 # every time you change the web app:
-npm run build            # produces dist/pokemon/browser
+npm run build            # produces dist/Pokemon/browser
 npx cap sync             # copies the web build into the native projects
 
 # open in the native IDE and press Run
@@ -78,8 +78,8 @@ npx cap open ios         # Xcode (macOS only)
 ```
 
 **Gotcha — blank white screen:** the native app boots to a blank page if `webDir`
-is wrong. It must point at `dist/pokemon/browser` (already set in
-`capacitor.config.ts`). Verify `dist/pokemon/browser/index.html` exists after a build.
+is wrong. It must point at `dist/Pokemon/browser` (already set in
+`capacitor.config.ts`). Verify `dist/Pokemon/browser/index.html` exists after a build.
 
 **Gotcha — Android build fails with `invalid source release: 21`:** Capacitor 8's
 Android project needs **JDK 21**. Android Studio's bundled JBR may still be 17 — set
@@ -151,7 +151,7 @@ After `npx cap open ios` opens Xcode:
 |---|---|
 | Install deps | `npm install` |
 | Dev server (web) | `npm start` → http://localhost:4200 |
-| Production build | `npm run build` → `dist/pokemon/browser` |
+| Production build | `npm run build` → `dist/Pokemon/browser` |
 | Unit tests | `npm test` |
 | Sync web build into native | `npm run build && npx cap sync` |
 | Open Android | `npx cap open android` |

@@ -1,5 +1,5 @@
 {
   "buildCommand": "npm run build",
-  "outputDirectory": "dist/pokemon/browser",
+  "outputDirectory": "dist/Pokemon/browser",
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }
